@@ -1,0 +1,22 @@
+
+sqoop-import --connect jdbc:mysql://quickstart.cloudera:3306/adventureworksdw --username root --table factinternetsales --as-parquetfile --password-file /user/cloudera/passwordfile -m 1 --target-dir /user/cloudera/adventureworks/dw/factinternetsales
+
+sqoop-import --connect jdbc:mysql://quickstart.cloudera:3306/adventureworksdw --username root --table dimcustomer --as-parquetfile --password-file /user/cloudera/passwordfile -m 1 --target-dir /user/cloudera/adventureworks/dw/dimcustomer
+
+sqoop-import --connect jdbc:mysql://quickstart.cloudera:3306/adventureworksdw --username root --table dimcurrency --as-parquetfile --password-file /user/cloudera/passwordfile -m 1 --target-dir /user/cloudera/adventureworks/dw/dimcurrency
+
+
+sqoop-import --connect jdbc:mysql://quickstart.cloudera:3306/adventureworksdw --username root --table dimdate --as-parquetfile  --password-file /user/cloudera/passwordfile -m 1 --target-dir /user/cloudera/adventureworks/dw/dimdate
+
+
+sqoop-import --connect jdbc:mysql://quickstart.cloudera:3306/adventureworksdw --username root --table dimsalesterritory --as-parquetfile --password-file /user/cloudera/passwordfile -m 1 --target-dir /user/cloudera/adventureworks/dw/dimsalesterritory
+
+sqoop-import --connect jdbc:mysql://quickstart.cloudera:3306/adventureworksdw --username root --table dimproduct --as-parquetfile --password-file /user/cloudera/passwordfile -m 1 --target-dir /user/cloudera/adventureworks/dw/product
+
+sqoop-import --connect jdbc:mysql://quickstart.cloudera:3306/adventureworksdw --username root --table dimgeography --as-parquetfile  --password-file /user/cloudera/passwordfile -m 1 --target-dir /user/cloudera/adventureworks/dw/dimgeography
+
+
+sqoop-import --connect jdbc:mysql://quickstart.cloudera:3306/adventureworksdw --username root --table dimproductcategory --as-parquetfile --password-file /user/cloudera/passwordfile -m 1 --target-dir /user/cloudera/adventureworks/dw/dimproductcategory
+
+sqoop-import --connect jdbc:mysql://quickstart.cloudera:3306/adventureworksdw --username root --table dimproductsubcategory --as-parquetfile --password-file /user/cloudera/passwordfile -m 1 --target-dir /user/cloudera/adventureworks/dw/dimproductsubcategory
+
