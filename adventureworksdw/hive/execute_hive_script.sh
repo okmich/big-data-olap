@@ -1,0 +1,1 @@
+beeline -u jdbc:hive2://sandbox-hdp.hortonworks.com:10000/ -n maria_dev -f ./hive-create-table.hql
