@@ -1,0 +1,1 @@
+java -jar ./logfile-reader-simulation-1.0-SNAPSHOT.jar -srcfolder=/home/maria_dev/access_logs -topic=clickstream_v1 -kafkaBroker=sandbox-hdp.hortonworks.com:6667
