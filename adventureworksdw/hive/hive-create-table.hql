@@ -169,7 +169,7 @@ CREATE TABLE tmpproduct (
   EnglishProductName string,
   SpanishProductName string,
   FrenchProductName string,
-  StandardCost string),
+  StandardCost string,
   FinishedGoodsFlag boolean,
   Color string,
   SafetyStockLevel smallint,
