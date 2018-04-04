@@ -6,7 +6,7 @@ JOIN dimdate od ON od.datekey = f.orderdatekey
 JOIN dimsalesterritory ds ON ds.salesterritorykey = f.salesterritorykey
 GROUP BY od.englishmonthname, od.calendaryear, ds.salesterritorycountry;
 
--- total sales and discount across geographical regions. Drill down the hierarchy for sales territory to region
+-- total sales and discount across sales territory. Drill down the hierarchy for sales territory to region
 SELECT dst.salesterritorygroup,
        dst.salesterritorycountry,
        dst.salesterritoryregion,
@@ -26,10 +26,10 @@ SELECT dpc.englishproductcategoryname,
        sum(f.salesamount) AS salesamount,
        sum(f.totalproductcost) AS totalproductcost,
        sum(f.discountamount) AS discountamount,
-       sum(f.salesamount - totalproductcost - discountamount) AS profit
+       (sum(f.salesamount) - sum(totalproductcost) - sum(discountamount)) AS profit
 FROM factinternetsales f
 JOIN dimproduct dp ON dp.productkey = f.productkey
-LEFT JOIN dimproductsubcategory dpsc ON dpsc.productsubcategorykey = dp.productsubcategorykey
+LEFT JOIN dimproductsubcategory dpsc ON dpsc.productsubcategorykey = dp.productsubcategorykey and dp.productcategorykey = dpsc.productcategorykey
 LEFT JOIN dimproductcategory dpc ON dpc.productcategorykey = dp.productcategorykey
 GROUP BY dpc.englishproductcategoryname,
          dpsc.englishproductsubcategoryname,
@@ -45,10 +45,10 @@ SELECT dpc.englishproductcategoryname,
        sum(f.salesamount) AS salesamount,
        sum(f.totalproductcost) AS totalproductcost,
        sum(f.discountamount) AS discountamount,
-       sum(f.salesamount - totalproductcost - discountamount) AS profit
+       (sum(f.salesamount) - sum(totalproductcost) - sum(discountamount)) AS profit
 FROM factinternetsales f
 JOIN dimproduct dp ON dp.productkey = f.productkey
-LEFT JOIN dimproductsubcategory dpsc ON dpsc.productsubcategorykey = dp.productsubcategorykey
+LEFT JOIN dimproductsubcategory dpsc ON dpsc.productsubcategorykey = dp.productsubcategorykey and dp.productcategorykey = dpsc.productcategorykey
 LEFT JOIN dimproductcategory dpc ON dpc.productcategorykey = dp.productcategorykey
 JOIN dimdate dd ON f.orderdatekey = dd.datekey
 GROUP BY dpc.englishproductcategoryname,
@@ -58,4 +58,4 @@ GROUP BY dpc.englishproductcategoryname,
          dd.calendarquarter;
 
 
--- top 4 performing salesterrritory for specific quarter compared with previous quarter
+

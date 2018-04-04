@@ -69,7 +69,7 @@ location '/user/maria_dev/rawdata/flight_data/flights';
 
 
 CREATE TABLE flight stored AS orc AS
-SELECT YEAR,
+SELECT YEAR as flight_year,
        CASE
            WHEN MONTH >= 1
                 AND MONTH <= 3 THEN '1'
@@ -79,8 +79,8 @@ SELECT YEAR,
                 AND MONTH <= 9 THEN '3'
            WHEN MONTH > 9
                 AND MONTH <= 12 THEN '4'
-       END AS quarter,
-       MONTH,
+       END AS flight_quarter,
+       MONTH as flight_month,
        CASE
            WHEN MONTH = 1 THEN 'January'
            WHEN MONTH = 2 THEN 'February'
@@ -129,9 +129,9 @@ WHERE flightnum <> 'FlightNum';
 
 
 CREATE TABLE flat_flight_data stored AS orc AS
-SELECT YEAR,
-       quarter,
-       MONTH,
+SELECT year as flight_year,
+       quarter as flight_quarter,
+       month as flight_month,
        monthname,
        dayofmonth,
        dayofweek,
