@@ -2,7 +2,7 @@ create database if not exists adventureworksdw;
 
 use adventureworksdw;
 
-CREATE TABLE dimcurrency (
+CREATE TABLE IF NOT EXISTS dimcurrency (
   CurrencyKey int,
   CurrencyAlternateKey string,
   CurrencyName string
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS tmpcustomer (
 stored as parquet
 location '/user/maria_dev/adventureworks/dw/customer';
 
-CREATE TABLE dimdate (
+CREATE TABLE IF NOT EXISTS dimdate (
   DateKey int,
   FullDateAlternateKey bigint,
   DayNumberOfWeek tinyint,
@@ -103,7 +103,7 @@ stored as parquet
 location '/user/maria_dev/adventureworks/dw/dimdate';
 
 
-CREATE TABLE dimgeography (
+CREATE TABLE IF NOT EXISTS dimgeography (
   GeographyKey int,
   City varchar(30),
   StateProvinceCode varchar(3) ,
@@ -118,7 +118,7 @@ CREATE TABLE dimgeography (
 stored as parquet
 location '/user/maria_dev/adventureworks/dw/dimgeography';
 
-CREATE TABLE dimproduct (
+CREATE TABLE IF NOT EXISTS dimproduct (
   ProductKey int,
   ProductAlternateKey string,
   ProductCategoryKey int,
@@ -160,7 +160,7 @@ CREATE TABLE dimproduct (
 stored as parquet
 location '/user/maria_dev/adventureworks/dw/dimproduct';
 
-CREATE TABLE tmpproduct (
+CREATE TABLE IF NOT EXISTS tmpproduct (
   ProductKey int,
   ProductAlternateKey string,
   ProductSubcategoryKey int,
@@ -201,7 +201,7 @@ CREATE TABLE tmpproduct (
 stored as parquet
 location '/user/maria_dev/adventureworks/dw/product';
 
-CREATE TABLE dimproductcategory (
+CREATE TABLE IF NOT EXISTS dimproductcategory (
   ProductCategoryKey int,
   ProductCategoryAlternateKey int,
   EnglishProductCategoryName string,
@@ -211,7 +211,7 @@ CREATE TABLE dimproductcategory (
 stored as parquet
 location '/user/maria_dev/adventureworks/dw/dimproductcategory';
 
-CREATE TABLE dimproductsubcategory (
+CREATE TABLE IF NOT EXISTS dimproductsubcategory (
   ProductSubcategoryKey int,
   ProductSubcategoryAlternateKey int,
   EnglishProductSubcategoryName string,
@@ -222,7 +222,7 @@ CREATE TABLE dimproductsubcategory (
 stored as parquet
 location '/user/maria_dev/adventureworks/dw/dimproductsubcategory';
 
-CREATE TABLE dimsalesterritory (
+CREATE TABLE IF NOT EXISTS dimsalesterritory (
   SalesTerritoryKey int,
   SalesTerritoryAlternateKey int,
   SalesTerritoryRegion string,
@@ -233,7 +233,7 @@ stored as parquet
 location '/user/maria_dev/adventureworks/dw/dimsalesterritory';
 
 
-CREATE TABLE factinternetsales (
+CREATE TABLE IF NOT EXISTS factinternetsales (
   ProductKey int,
   OrderDateKey int,
   DueDateKey int,
@@ -262,7 +262,7 @@ stored as parquet
 location '/user/maria_dev/adventureworks/dw/factinternetsales';
 
 
-CREATE TABLE internetsales (
+CREATE TABLE IF NOT EXISTS internetsales (
   ProductKey int,
   OrderDateKey int,
   DueDateKey int,
@@ -367,7 +367,7 @@ SELECT
   CommuteDistance
 from tmpcustomer;
 
-drop table tmpcustomer purge;
+--drop table tmpcustomer purge;
 
 
 INSERT overwrite TABLE factinternetsales
@@ -397,4 +397,4 @@ SELECT
   CustomerPONumber
 from internetsales;
 
-drop table internetsales purge;
+-- drop table internetsales purge;
