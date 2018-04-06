@@ -367,7 +367,7 @@ SELECT
   CommuteDistance
 from tmpcustomer;
 
---drop table tmpcustomer purge;
+drop table tmpcustomer purge;
 
 
 INSERT overwrite TABLE factinternetsales
@@ -397,4 +397,4 @@ SELECT
   CustomerPONumber
 from internetsales;
 
--- drop table internetsales purge;
+drop table internetsales purge;

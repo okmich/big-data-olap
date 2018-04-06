@@ -24,15 +24,3 @@ To login to kylin for the first time, use ADMIN/KYLIN as credentials
 
 How do I deploy apache?
 
-Table focus
-======================
-factinternetsales
-dimcustomer
-dimcurrency
-dimdate
-dimsalesterritory
-dimproduct
-dimgeography
-dimproductcategory
-dimproductsubcategory
-
