@@ -28,18 +28,20 @@ public class Log {
     private String ip;
     private String userId;
     private String principal;
-    private int year;
-    private int month;
+    private int eventYear;
+    private int eventMonth;
+    private int weekOfMonth;
+    private String eventQuarter;
     private String monthName;
     private int dayofMonth;
     private String dayNameOfWeek;
-    private int hour;
-    private int minute;
+    private int eventHour;
+    private int eventMinute;
     private String gmtOffset;
     private String method;
     private String url;
     private String statusCode;
-    private String size;
+    private long size;
     private String version;
     private long ts;
 
@@ -62,18 +64,21 @@ public class Log {
         log.url = matcher.group(7);
         log.version = matcher.group(8);
         log.statusCode = matcher.group(9);
-        log.size = matcher.group(10);
+        log.size = parseSize(matcher.group(10));
 
         try {
             String dateTime = matcher.group(4);
             cal.setTime(DATE_FORMAT.parse(dateTime));
 
-            log.year = cal.get(Calendar.YEAR);
+            log.eventYear = cal.get(Calendar.YEAR);
+            log.eventQuarter = deriveQuarter(cal.get(Calendar.MONTH));
+            log.weekOfMonth = cal.get(Calendar.WEEK_OF_MONTH);
             log.dayNameOfWeek = getDayForInt(cal.get(Calendar.DAY_OF_WEEK));
             log.dayofMonth = cal.get(Calendar.DAY_OF_MONTH);
-            log.hour = cal.get(Calendar.HOUR_OF_DAY);
-            log.minute = cal.get(Calendar.MINUTE);
-            log.month = cal.get(Calendar.MONTH);
+            log.dayofMonth = cal.get(Calendar.DAY_OF_MONTH);
+            log.eventHour = cal.get(Calendar.HOUR_OF_DAY);
+            log.eventMinute = cal.get(Calendar.MINUTE);
+            log.eventMonth = cal.get(Calendar.MONTH);
             log.monthName = getMonthForInt(cal.get(Calendar.MONTH));
             log.ts = cal.getTimeInMillis();
         } catch (Exception e) {
@@ -98,4 +103,37 @@ public class Log {
         }
         return day;
     }
+
+    static long parseSize(String sz) {
+        try {
+            return Long.parseLong(sz);
+        } catch (NumberFormatException ex) {
+            return 0l;
+        }
+    }
+
+    private static String deriveQuarter(int get) {
+        switch (get) {
+            case Calendar.JANUARY:
+            case Calendar.FEBRUARY:
+            case Calendar.MARCH:
+                return "Q1";
+            case Calendar.APRIL:
+            case Calendar.MAY:
+            case Calendar.JUNE:
+                return "Q2";
+            case Calendar.JULY:
+            case Calendar.AUGUST:
+            case Calendar.SEPTEMBER:
+                return "Q3";
+            case Calendar.OCTOBER:
+            case Calendar.NOVEMBER:
+            case Calendar.DECEMBER:
+                return "Q4";
+            default:
+                return "";
+
+        }
+    }
+
 }

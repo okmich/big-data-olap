@@ -1,0 +1,21 @@
+kafka-topics.sh --create --replication-factor 1 --partitions 1 --topic click_stream_topic --zookeeper quickstart.cloudera:2181
+
+kafka-console-consumer.sh --topic click_stream_topic --bootstrap-server quickstart.cloudera:9092 --from-beginning
+
+
+java -jar target/logfile-reader-simulation-1.0-SNAPSHOT.jar -srcfolder=/home/cloudera/access_logs/ -kafkabroker=quickstart.cloudera:9092 -topic=click_stream_topic -fileIndex=0 -batchsize=10000 -begin=0
+
+
+kafka-topics.sh --delete --topic click_stream_topic --zookeeper quickstart.cloudera:2181
+
+
+PUT http://localhost:7070/kylin/api/cubes/Logs/rebuild
+
+Authorization:Basic xxxxJD124xxxGFxxxSDF
+Content-Type: application/json;charset=UTF-8
+    
+{
+    "startTime": 0,
+    "endTime": 1388563200000,
+    "buildType": "BUILD"
+}
