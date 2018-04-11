@@ -29,24 +29,25 @@ SELECT dpc.englishproductcategoryname,
        (sum(f.salesamount) - sum(totalproductcost) - sum(discountamount)) AS profit
 FROM factinternetsales f
 JOIN dimproduct dp ON dp.productkey = f.productkey
-LEFT JOIN dimproductsubcategory dpsc ON dpsc.productsubcategorykey = dp.productsubcategorykey and dp.productcategorykey = dpsc.productcategorykey
-LEFT JOIN dimproductcategory dpc ON dpc.productcategorykey = dp.productcategorykey
+JOIN dimproductsubcategory dpsc ON dpsc.productsubcategorykey = dp.productsubcategorykey and dp.productcategorykey = dpsc.productcategorykey
+JOIN dimproductcategory dpc ON dpc.productcategorykey = dp.productcategorykey
 GROUP BY dpc.englishproductcategoryname,
          dpsc.englishproductsubcategoryname,
          dp.englishproductName;
 
+
 -- sales performance of products and product categories over time with quarterly granularity
 SELECT dpc.englishproductcategoryname,
-       dpsc.englishproductsubcategoryname,
-       dp.englishproductName,
-       dc.currencyname,
-       dd.calendaryear,
-       dd.calendarquarter,
-       sum(f.orderquantity) AS orderquantity,
-       sum(f.salesamount) AS salesamount,
-       sum(f.totalproductcost) AS totalproductcost,
-       sum(f.discountamount) AS discountamount,
-       (sum(f.salesamount) - sum(totalproductcost) - sum(discountamount)) AS profit
+		dpsc.englishproductsubcategoryname,
+		dp.englishproductName,
+		dc.currencyname,
+		dd.calendaryear,
+		dd.calendarquarter,
+		sum(f.orderquantity) AS orderquantity,
+		sum(f.salesamount) AS salesamount,
+		sum(f.totalproductcost) AS totalproductcost,
+		sum(f.discountamount) AS discountamount,
+		(sum(f.salesamount) - sum(totalproductcost) - sum(discountamount)) AS profit
 FROM factinternetsales f
 JOIN dimproduct dp ON dp.productkey = f.productkey
 JOIN dimproductsubcategory dpsc ON dpsc.productsubcategorykey = dp.productsubcategorykey and dp.productcategorykey = dpsc.productcategorykey
@@ -54,11 +55,11 @@ JOIN dimproductcategory dpc ON dpc.productcategorykey = dp.productcategorykey
 JOIN dimcurrency dc ON dc.currencykey = f.currencykey
 JOIN dimdate dd ON f.orderdatekey = dd.datekey
 GROUP BY dpc.englishproductcategoryname,
-         dpsc.englishproductsubcategoryname,
-         dp.englishproductName,
-         dc.currencyname,
-         dd.calendaryear,
-         dd.calendarquarter;
+	  dpsc.englishproductsubcategoryname,
+	  dp.englishproductName,
+	  dc.currencyname,
+	  dd.calendaryear,
+	  dd.calendarquarter;
 
 
 
