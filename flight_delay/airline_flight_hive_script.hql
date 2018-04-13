@@ -129,9 +129,9 @@ WHERE flightnum <> 'FlightNum';
 
 
 CREATE TABLE flat_flight_data stored AS orc AS
-SELECT year as flight_year,
-       quarter as flight_quarter,
-       month as flight_month,
+SELECT flight_year,
+       flight_quarter,
+       flight_month,
        monthname,
        dayofmonth,
        dayofweek,
