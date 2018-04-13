@@ -1,6 +1,6 @@
 {
   "uuid": "1e0ff985-093a-45b5-9541-56613ad6edfa",
-  "last_modified": 1523622669866,
+  "last_modified": 1523623389178,
   "version": "2.3.1.0",
   "name": "FlightDelayModel",
   "owner": "ADMIN",
@@ -13,7 +13,7 @@
       "kind": "LOOKUP",
       "alias": "PLANE",
       "join": {
-        "type": "inner",
+        "type": "left",
         "primary_key": [
           "PLANE.TAILNUM"
         ],

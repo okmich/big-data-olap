@@ -55,7 +55,7 @@ with serdeproperties (
 stored as textfile
 location '/user/maria_dev/rawdata/flight_data/planes';
 
-create table flight_raw
+create external table flight_raw
   (year smallint, month tinyint, dayofmonth tinyint, dayofweek tinyint,
   deptime smallint, crsdeptime smallint, arrtime smallint, crsarrtime smallint, 
   uniquecarrier string, flightnum string, tailnum string, actualelapsedtime smallint,
@@ -67,6 +67,35 @@ row format delimited
 fields terminated by ','
 location '/user/maria_dev/rawdata/flight_data/flights';
 
+CREATE TABLE airport stored AS orc AS
+SELECT iata,
+       airport,
+       city,
+       STATE,
+       country,
+       geolat,
+       geolong
+FROM airport_raw
+WHERE iata <> 'iata';
+
+CREATE TABLE plane stored AS orc AS
+SELECT tailnum,
+       TYPE,
+       manufacturer,
+       issue_date,
+       model,
+       status,
+       aircraft_type,
+       pyear
+FROM plane_raw
+WHERE TYPE <> 'type';
+
+
+CREATE TABLE carrier stored AS orc AS
+SELECT code,
+       description
+FROM carrier_raw
+WHERE code <> 'code';
 
 CREATE TABLE flight stored AS orc AS
 SELECT YEAR as flight_year,
@@ -169,40 +198,12 @@ SELECT flight_year,
        pr.status AS plane_status,
        pr.pyear AS plane_year
 FROM flight f 
-LEFT JOIN carrier_raw cr ON cr.code = f.uniquecarrier
-LEFT JOIN plane_raw pr ON pr.tailnum = f.tailnum
-LEFT JOIN airport_raw orw ON orw.iata = f.origin
-LEFT JOIN airport_raw ar ON ar.iata = f.dest;
-
-CREATE TABLE airport stored AS orc AS
-SELECT iata,
-       airport,
-       city,
-       STATE,
-       country,
-       geolat,
-       geolong
-FROM airport_raw
-WHERE iata <> 'iata';
-
-CREATE TABLE plane stored AS orc AS
-SELECT tailnum,
-       TYPE,
-       manufacturer,
-       issue_date,
-       model,
-       status,
-       aircraft_type,
-       pyear
-FROM plane_raw
-WHERE TYPE <> 'type';
+LEFT JOIN carrier cr ON cr.code = f.uniquecarrier
+LEFT JOIN plane pr ON pr.tailnum = f.tailnum
+LEFT JOIN airport orw ON orw.iata = f.origin
+LEFT JOIN airport ar ON ar.iata = f.dest;
 
 
-CREATE TABLE carrier stored AS orc AS
-SELECT code,
-       description
-FROM carrier_raw
-WHERE code <> 'code';
 
 
 drop table flight_raw;
