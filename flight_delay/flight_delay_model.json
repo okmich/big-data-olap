@@ -1,0 +1,143 @@
+{
+  "uuid": "1e0ff985-093a-45b5-9541-56613ad6edfa",
+  "last_modified": 1523622669866,
+  "version": "2.3.1.0",
+  "name": "FlightDelayModel",
+  "owner": "ADMIN",
+  "is_draft": false,
+  "description": "FlightDelayModel",
+  "fact_table": "FLIGHT_PERFORMANCE.FLIGHT",
+  "lookups": [
+    {
+      "table": "FLIGHT_PERFORMANCE.PLANE",
+      "kind": "LOOKUP",
+      "alias": "PLANE",
+      "join": {
+        "type": "inner",
+        "primary_key": [
+          "PLANE.TAILNUM"
+        ],
+        "foreign_key": [
+          "FLIGHT.TAILNUM"
+        ]
+      }
+    },
+    {
+      "table": "FLIGHT_PERFORMANCE.CARRIER",
+      "kind": "LOOKUP",
+      "alias": "CARRIER",
+      "join": {
+        "type": "inner",
+        "primary_key": [
+          "CARRIER.CODE"
+        ],
+        "foreign_key": [
+          "FLIGHT.UNIQUECARRIER"
+        ]
+      }
+    },
+    {
+      "table": "FLIGHT_PERFORMANCE.AIRPORT",
+      "kind": "LOOKUP",
+      "alias": "ORIGIN_AIRPORT",
+      "join": {
+        "type": "inner",
+        "primary_key": [
+          "ORIGIN_AIRPORT.IATA"
+        ],
+        "foreign_key": [
+          "FLIGHT.ORIGIN"
+        ]
+      }
+    },
+    {
+      "table": "FLIGHT_PERFORMANCE.AIRPORT",
+      "kind": "LOOKUP",
+      "alias": "DEST_AIRPORT",
+      "join": {
+        "type": "inner",
+        "primary_key": [
+          "DEST_AIRPORT.IATA"
+        ],
+        "foreign_key": [
+          "FLIGHT.DEST"
+        ]
+      }
+    }
+  ],
+  "dimensions": [
+    {
+      "table": "FLIGHT",
+      "columns": [
+        "FLIGHT_YEAR",
+        "FLIGHT_QUARTER",
+        "FLIGHT_MONTH",
+        "MONTHNAME",
+        "DAYOFMONTH",
+        "DAYOFWEEK",
+        "DAYNAMEOFWEEK",
+        "FLIGHT_DATE",
+        "CANCELLED",
+        "CANCELLATIONCODE",
+        "TAILNUM",
+        "UNIQUECARRIER",
+        "ORIGIN",
+        "DEST"
+      ]
+    },
+    {
+      "table": "PLANE",
+      "columns": [
+        "TAILNUM",
+        "TYPE",
+        "MANUFACTURER",
+        "MODEL",
+        "STATUS",
+        "AIRCRAFT_TYPE"
+      ]
+    },
+    {
+      "table": "CARRIER",
+      "columns": [
+        "CODE",
+        "DESCRIPTION"
+      ]
+    },
+    {
+      "table": "ORIGIN_AIRPORT",
+      "columns": [
+        "IATA",
+        "AIRPORT",
+        "CITY",
+        "STATE",
+        "COUNTRY"
+      ]
+    },
+    {
+      "table": "DEST_AIRPORT",
+      "columns": [
+        "IATA",
+        "AIRPORT",
+        "CITY",
+        "STATE",
+        "COUNTRY"
+      ]
+    }
+  ],
+  "metrics": [
+    "FLIGHT.ARRDELAY",
+    "FLIGHT.DEPDELAY",
+    "FLIGHT.DISTANCE"
+  ],
+  "filter_condition": "",
+  "partition_desc": {
+    "partition_date_column": "FLIGHT.FLIGHT_DATE",
+    "partition_time_column": null,
+    "partition_date_start": 0,
+    "partition_date_format": "yyyy-MM-dd",
+    "partition_time_format": "HH:mm:ss",
+    "partition_type": "APPEND",
+    "partition_condition_builder": "org.apache.kylin.metadata.model.PartitionDesc$DefaultPartitionConditionBuilder"
+  },
+  "capacity": "MEDIUM"
+}

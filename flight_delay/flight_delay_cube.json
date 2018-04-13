@@ -1,0 +1,436 @@
+{
+  "uuid": "5601558a-47f1-497a-b1c8-4c0741851643",
+  "last_modified": 1523623137755,
+  "version": "2.3.1.0",
+  "name": "FlightDelay",
+  "is_draft": false,
+  "model_name": "FlightDelayModel",
+  "description": "FlightDelay",
+  "null_string": null,
+  "dimensions": [
+    {
+      "name": "FLIGHT_YEAR",
+      "table": "FLIGHT",
+      "column": "FLIGHT_YEAR",
+      "derived": null
+    },
+    {
+      "name": "FLIGHT_QUARTER",
+      "table": "FLIGHT",
+      "column": "FLIGHT_QUARTER",
+      "derived": null
+    },
+    {
+      "name": "FLIGHT_MONTH",
+      "table": "FLIGHT",
+      "column": "FLIGHT_MONTH",
+      "derived": null
+    },
+    {
+      "name": "MONTHNAME",
+      "table": "FLIGHT",
+      "column": "MONTHNAME",
+      "derived": null
+    },
+    {
+      "name": "DAYOFMONTH",
+      "table": "FLIGHT",
+      "column": "DAYOFMONTH",
+      "derived": null
+    },
+    {
+      "name": "DAYOFWEEK",
+      "table": "FLIGHT",
+      "column": "DAYOFWEEK",
+      "derived": null
+    },
+    {
+      "name": "DAYNAMEOFWEEK",
+      "table": "FLIGHT",
+      "column": "DAYNAMEOFWEEK",
+      "derived": null
+    },
+    {
+      "name": "CANCELLED",
+      "table": "FLIGHT",
+      "column": "CANCELLED",
+      "derived": null
+    },
+    {
+      "name": "CANCELLATIONCODE",
+      "table": "FLIGHT",
+      "column": "CANCELLATIONCODE",
+      "derived": null
+    },
+    {
+      "name": "UNIQUECARRIER",
+      "table": "FLIGHT",
+      "column": "UNIQUECARRIER",
+      "derived": null
+    },
+    {
+      "name": "TAILNUM",
+      "table": "FLIGHT",
+      "column": "TAILNUM",
+      "derived": null
+    },
+    {
+      "name": "ORIGIN",
+      "table": "FLIGHT",
+      "column": "ORIGIN",
+      "derived": null
+    },
+    {
+      "name": "DEST",
+      "table": "FLIGHT",
+      "column": "DEST",
+      "derived": null
+    },
+    {
+      "name": "TAILNUM",
+      "table": "PLANE",
+      "column": null,
+      "derived": [
+        "TAILNUM"
+      ]
+    },
+    {
+      "name": "MANUFACTURER",
+      "table": "PLANE",
+      "column": "MANUFACTURER",
+      "derived": null
+    },
+    {
+      "name": "MODEL",
+      "table": "PLANE",
+      "column": "MODEL",
+      "derived": null
+    },
+    {
+      "name": "AIRCRAFT_TYPE",
+      "table": "PLANE",
+      "column": "AIRCRAFT_TYPE",
+      "derived": null
+    },
+    {
+      "name": "CARRIER_CODE",
+      "table": "CARRIER",
+      "column": null,
+      "derived": [
+        "CODE"
+      ]
+    },
+    {
+      "name": "CARRIER",
+      "table": "CARRIER",
+      "column": null,
+      "derived": [
+        "DESCRIPTION"
+      ]
+    },
+    {
+      "name": "IATA",
+      "table": "ORIGIN_AIRPORT",
+      "column": null,
+      "derived": [
+        "IATA"
+      ]
+    },
+    {
+      "name": "AIRPORT",
+      "table": "ORIGIN_AIRPORT",
+      "column": null,
+      "derived": [
+        "AIRPORT"
+      ]
+    },
+    {
+      "name": "CITY",
+      "table": "ORIGIN_AIRPORT",
+      "column": null,
+      "derived": [
+        "CITY"
+      ]
+    },
+    {
+      "name": "STATE",
+      "table": "ORIGIN_AIRPORT",
+      "column": null,
+      "derived": [
+        "STATE"
+      ]
+    },
+    {
+      "name": "COUNTRY",
+      "table": "ORIGIN_AIRPORT",
+      "column": null,
+      "derived": [
+        "COUNTRY"
+      ]
+    },
+    {
+      "name": "IATA",
+      "table": "DEST_AIRPORT",
+      "column": null,
+      "derived": [
+        "IATA"
+      ]
+    },
+    {
+      "name": "AIRPORT",
+      "table": "DEST_AIRPORT",
+      "column": null,
+      "derived": [
+        "AIRPORT"
+      ]
+    },
+    {
+      "name": "CITY",
+      "table": "DEST_AIRPORT",
+      "column": null,
+      "derived": [
+        "CITY"
+      ]
+    },
+    {
+      "name": "STATE",
+      "table": "DEST_AIRPORT",
+      "column": null,
+      "derived": [
+        "STATE"
+      ]
+    },
+    {
+      "name": "COUNTRY",
+      "table": "DEST_AIRPORT",
+      "column": null,
+      "derived": [
+        "COUNTRY"
+      ]
+    }
+  ],
+  "measures": [
+    {
+      "name": "_COUNT_",
+      "function": {
+        "expression": "COUNT",
+        "parameter": {
+          "type": "constant",
+          "value": "1"
+        },
+        "returntype": "bigint"
+      }
+    },
+    {
+      "name": "MIN_DEP_DELAY",
+      "function": {
+        "expression": "MIN",
+        "parameter": {
+          "type": "column",
+          "value": "FLIGHT.DEPDELAY"
+        },
+        "returntype": "smallint"
+      }
+    },
+    {
+      "name": "MAX_DEP_DELAY",
+      "function": {
+        "expression": "SUM",
+        "parameter": {
+          "type": "column",
+          "value": "FLIGHT.DEPDELAY"
+        },
+        "returntype": "bigint"
+      }
+    },
+    {
+      "name": "TOTAL_DEP_DELAY",
+      "function": {
+        "expression": "SUM",
+        "parameter": {
+          "type": "column",
+          "value": "FLIGHT.DEPDELAY"
+        },
+        "returntype": "bigint"
+      }
+    },
+    {
+      "name": "TOTAL_DISTANCE",
+      "function": {
+        "expression": "SUM",
+        "parameter": {
+          "type": "column",
+          "value": "FLIGHT.DISTANCE"
+        },
+        "returntype": "bigint"
+      }
+    }
+  ],
+  "dictionaries": [],
+  "rowkey": {
+    "rowkey_columns": [
+      {
+        "column": "FLIGHT.FLIGHT_YEAR",
+        "encoding": "dict",
+        "isShardBy": false
+      },
+      {
+        "column": "FLIGHT.FLIGHT_QUARTER",
+        "encoding": "dict",
+        "isShardBy": false
+      },
+      {
+        "column": "FLIGHT.FLIGHT_MONTH",
+        "encoding": "dict",
+        "isShardBy": false
+      },
+      {
+        "column": "FLIGHT.MONTHNAME",
+        "encoding": "dict",
+        "isShardBy": false
+      },
+      {
+        "column": "FLIGHT.DAYOFMONTH",
+        "encoding": "dict",
+        "isShardBy": false
+      },
+      {
+        "column": "FLIGHT.DAYOFWEEK",
+        "encoding": "dict",
+        "isShardBy": false
+      },
+      {
+        "column": "FLIGHT.DAYNAMEOFWEEK",
+        "encoding": "dict",
+        "isShardBy": false
+      },
+      {
+        "column": "FLIGHT.CANCELLED",
+        "encoding": "dict",
+        "isShardBy": false
+      },
+      {
+        "column": "FLIGHT.CANCELLATIONCODE",
+        "encoding": "dict",
+        "isShardBy": false
+      },
+      {
+        "column": "FLIGHT.UNIQUECARRIER",
+        "encoding": "dict",
+        "isShardBy": false
+      },
+      {
+        "column": "FLIGHT.TAILNUM",
+        "encoding": "dict",
+        "isShardBy": false
+      },
+      {
+        "column": "FLIGHT.ORIGIN",
+        "encoding": "dict",
+        "isShardBy": false
+      },
+      {
+        "column": "FLIGHT.DEST",
+        "encoding": "dict",
+        "isShardBy": false
+      },
+      {
+        "column": "PLANE.MANUFACTURER",
+        "encoding": "dict",
+        "isShardBy": false
+      },
+      {
+        "column": "PLANE.MODEL",
+        "encoding": "dict",
+        "isShardBy": false
+      },
+      {
+        "column": "PLANE.AIRCRAFT_TYPE",
+        "encoding": "dict",
+        "isShardBy": false
+      }
+    ]
+  },
+  "hbase_mapping": {
+    "column_family": [
+      {
+        "name": "F1",
+        "columns": [
+          {
+            "qualifier": "M",
+            "measure_refs": [
+              "_COUNT_",
+              "MIN_DEP_DELAY",
+              "MAX_DEP_DELAY",
+              "TOTAL_DEP_DELAY",
+              "TOTAL_DISTANCE"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "aggregation_groups": [
+    {
+      "includes": [
+        "FLIGHT.FLIGHT_YEAR",
+        "FLIGHT.FLIGHT_QUARTER",
+        "FLIGHT.FLIGHT_MONTH",
+        "FLIGHT.DAYOFMONTH",
+        "FLIGHT.DAYOFWEEK",
+        "FLIGHT.DAYNAMEOFWEEK",
+        "FLIGHT.CANCELLED",
+        "FLIGHT.CANCELLATIONCODE",
+        "FLIGHT.UNIQUECARRIER",
+        "FLIGHT.TAILNUM",
+        "FLIGHT.ORIGIN",
+        "FLIGHT.DEST",
+        "PLANE.MANUFACTURER",
+        "PLANE.MODEL",
+        "PLANE.AIRCRAFT_TYPE"
+      ],
+      "select_rule": {
+        "hierarchy_dims": [
+          [
+            "FLIGHT.FLIGHT_YEAR",
+            "FLIGHT.FLIGHT_QUARTER",
+            "FLIGHT.FLIGHT_MONTH",
+            "FLIGHT.DAYOFMONTH"
+          ],
+          [
+            "PLANE.MANUFACTURER",
+            "PLANE.MODEL"
+          ]
+        ],
+        "mandatory_dims": [],
+        "joint_dims": [
+          [
+            "FLIGHT.DAYOFWEEK",
+            "FLIGHT.DAYNAMEOFWEEK"
+          ]
+        ]
+      }
+    }
+  ],
+  "signature": "qdCX2yykEFlblv16XF/YzA==",
+  "notify_list": [],
+  "status_need_notify": [
+    "ERROR",
+    "DISCARDED",
+    "SUCCEED"
+  ],
+  "partition_date_start": 978307200000,
+  "partition_date_end": 3153600000000,
+  "auto_merge_time_ranges": [
+    604800000,
+    2419200000
+  ],
+  "volatile_range": 0,
+  "retention_range": 0,
+  "engine_type": 2,
+  "storage_type": 2,
+  "override_kylin_properties": {},
+  "cuboid_black_list": [],
+  "parent_forward": 3,
+  "mandatory_dimension_set_list": []
+}
