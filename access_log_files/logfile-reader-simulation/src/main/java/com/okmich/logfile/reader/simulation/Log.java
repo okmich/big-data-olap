@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,8 +68,9 @@ public class Log {
         log.size = parseSize(matcher.group(10));
 
         try {
-            String dateTime = matcher.group(4);
-            cal.setTime(DATE_FORMAT.parse(dateTime));
+            //String dateTime = matcher.group(4);
+            //we want to use current date time
+            cal.setTime(new Date());
 
             log.eventYear = cal.get(Calendar.YEAR);
             log.eventQuarter = deriveQuarter(cal.get(Calendar.MONTH));
