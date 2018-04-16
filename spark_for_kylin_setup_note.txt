@@ -1,0 +1,54 @@
+### These instructions were extracted and adapted from the kylin apache website.
+### http://kylin.apache.org/docs23/tutorial/cube_spark.html
+### See note about Spark for Kylin in Cube building
+### http://kylin.apache.org/blog/2017/02/23/by-layer-spark-cubing/
+
+mkdir -p $KYLIN_HOME/hadoop-conf
+
+ln -s /etc/hadoop/conf/core-site.xml $KYLIN_HOME/hadoop-conf/core-site.xml 
+ln -s /etc/hadoop/conf/hdfs-site.xml $KYLIN_HOME/hadoop-conf/hdfs-site.xml 
+ln -s /etc/hadoop/conf/yarn-site.xml $KYLIN_HOME/hadoop-conf/yarn-site.xml
+ln -s /etc/hbase/2.4.0.0-169/0/hbase-site.xml $KYLIN_HOME/hadoop-conf/hbase-site.xml
+cp /etc/hive/conf/hive-site.xml $KYLIN_HOME/hadoop-conf/hive-site.xml
+
+
+
+# vi $KYLIN_HOME/conf/kylin.properties
+# Edit the following properties in kylin.properties file
+============================================================
+kylin.env.hadoop-conf-dir=/opt/apache-kylin-2.3.1-bin/hadoop-conf
+
+#kylin.engine.spark-conf.spark.master=yarn
+#kylin.engine.spark-conf.spark.submit.deployMode=cluster
+kylin.engine.spark-conf.spark.master=local[*]
+kylin.engine.spark-conf.spark.submit.deployMode=client
+kylin.engine.spark-conf.spark.yarn.queue=default
+kylin.engine.spark-conf.spark.executor.memory=512M
+kylin.engine.spark-conf.spark.executor.cores=1
+kylin.engine.spark-conf.spark.executor.instances=1
+kylin.engine.spark-conf.spark.eventLog.enabled=true
+kylin.engine.spark-conf.spark.eventLog.dir=hdfs\:///kylin/spark-history
+kylin.engine.spark-conf.spark.history.fs.logDirectory=hdfs\:///kylin/spark-history
+kylin.engine.spark-conf.spark.yarn.archive=hdfs://sandbox-hdp.hortonworks.com:8020/kylin/spark/spark-libs.jar
+
+#kylin.engine.spark-conf.spark.io.compression.codec=org.apache.spark.io.SnappyCompressionCodec
+
+kylin.engine.spark-conf.spark.yarn.archive=hdfs://sandbox.hortonworks.com:8020/kylin/spark/spark-libs.jar
+# Comment the next 3 lines if your cluster is not hdp
+kylin.engine.spark-conf.spark.driver.extraJavaOptions=-Dhdp.version=2.6.4
+kylin.engine.spark-conf.spark.yarn.am.extraJavaOptions=-Dhdp.version=2.6.4
+kylin.engine.spark-conf.spark.executor.extraJavaOptions=-Dhdp.version=2.6.4
+
+
+
+# create a single jar containing all the need spark libraries
+==============================================================
+jar cv0f spark-libs.jar -C $KYLIN_HOME/spark/jars/ .
+hdfs dfs -mkdir -p /kylin/spark/
+hdfs dfs -moveFromLocal spark-libs.jar /kylin/spark/
+
+# change the setting of hive.execution.engine in $KYLIN_HOME/hadoop-conf/hive-site.xml from tez to mr
+
+
+# now start kylin
+kylin.sh start
