@@ -25,7 +25,7 @@ public class Main {
         Map<String, String> arguments = parseCmdLine(args);
         File folder = new File(arguments.get("srcfolder"));
         if (!folder.exists() || !folder.isDirectory()) {
-            throw new IllegalArgumentException("");
+            throw new IllegalArgumentException("srcfolder does not exist");
         }
         File[] files = folder.listFiles();
         String fileIndex = arguments.get("fileindex");

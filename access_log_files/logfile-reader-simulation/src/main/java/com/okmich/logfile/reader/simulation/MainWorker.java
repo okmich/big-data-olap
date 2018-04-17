@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.RandomAccessFile;
+import java.util.Random;
 
 /**
  *
@@ -37,9 +37,11 @@ public class MainWorker {
         for (int p = 0; p < this.pointToBegin; p++) {
             br.readLine();
         }
+        Random random = new Random(1234);
 
         String line, json;
         while ((line = br.readLine()) != null && i < batchSize) {
+            Thread.sleep(random.nextInt(1000));
             log = Log.fromLogEntry(line);
             if (log != null) {
                 kafkaSender.send(gson.toJson(log));

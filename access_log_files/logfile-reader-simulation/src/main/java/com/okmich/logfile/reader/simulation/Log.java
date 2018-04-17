@@ -68,9 +68,8 @@ public class Log {
         log.size = parseSize(matcher.group(10));
 
         try {
-            //String dateTime = matcher.group(4);
-            //we want to use current date time
-            cal.setTime(new Date());
+            String dateTime = matcher.group(4);
+            cal.setTime(DATE_FORMAT.parse(dateTime));
 
             log.eventYear = cal.get(Calendar.YEAR);
             log.eventQuarter = deriveQuarter(cal.get(Calendar.MONTH));
