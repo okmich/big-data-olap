@@ -5,10 +5,10 @@
  */
 package com.okmich.kylin.jdbc.client;
 
-import java.io.Console;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,7 +36,7 @@ public class Main {
         String query = argMap.get("q");
         if (query == null) {
             System.out.println("Enter the query you want to execute: ");
-            query = System.console().readLine();
+            query = new Scanner(System.in).nextLine();
             if (query == null || query.trim().isEmpty()) {
                 throw new IllegalArgumentException("Invalid query supplied");
             }
