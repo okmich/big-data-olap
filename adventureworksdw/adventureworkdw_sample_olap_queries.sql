@@ -29,7 +29,7 @@ SELECT dpc.englishproductcategoryname,
        (sum(f.salesamount) - sum(totalproductcost) - sum(discountamount)) AS profit
 FROM factinternetsales f
 JOIN dimproduct dp ON dp.productkey = f.productkey
-JOIN dimproductsubcategory dpsc ON dpsc.productsubcategorykey = dp.productsubcategorykey and dp.productcategorykey = dpsc.productcategorykey
+JOIN dimproductsubcategory dpsc ON dpsc.productsubcategorykey = dp.productsubcategorykey 
 JOIN dimproductcategory dpc ON dpc.productcategorykey = dp.productcategorykey
 GROUP BY dpc.englishproductcategoryname,
          dpsc.englishproductsubcategoryname,
@@ -50,7 +50,7 @@ SELECT dpc.englishproductcategoryname,
 		(sum(f.salesamount) - sum(totalproductcost) - sum(discountamount)) AS profit
 FROM factinternetsales f
 JOIN dimproduct dp ON dp.productkey = f.productkey
-JOIN dimproductsubcategory dpsc ON dpsc.productsubcategorykey = dp.productsubcategorykey and dp.productcategorykey = dpsc.productcategorykey
+JOIN dimproductsubcategory dpsc ON dpsc.productsubcategorykey = dp.productsubcategorykey 
 JOIN dimproductcategory dpc ON dpc.productcategorykey = dp.productcategorykey
 JOIN dimcurrency dc ON dc.currencykey = f.currencykey
 JOIN dimdate dd ON f.orderdatekey = dd.datekey
